@@ -45,8 +45,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 500,
   },
   server: {
-    port: 3000,
-    host: true,
+    allowedHosts: ['testtecnicoprojeto.onrender.com'],
   },
   // ⚡ PERFORMANCE: Pre-bundling de dependências
   optimizeDeps: {
