@@ -2,14 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
-      // Aliases para imports limpos sem relative paths longos
       '@': path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components'),
       '@features': path.resolve(__dirname, './src/features'),
@@ -24,11 +20,9 @@ export default defineConfig({
     },
   },
   build: {
-    // ⚡ PERFORMANCE: Code splitting manual para melhor cache
     rollupOptions: {
       output: {
         manualChunks: {
-          // Separa vendor chunks para melhor cache HTTP
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-query': ['@tanstack/react-query'],
           'vendor-ui': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
@@ -38,16 +32,19 @@ export default defineConfig({
         },
       },
     },
-    // ⚡ PERFORMANCE: Minificação e tree-shaking
     target: 'esnext',
     minify: 'esbuild',
-    sourcemap: false, // Desabilitar em produção para segurança e performance
+    sourcemap: false,
     chunkSizeWarningLimit: 500,
   },
   server: {
-    allowedHosts: ['testtecnicoprojeto.onrender.com'],
+    host: '0.0.0.0',                          // ← added
+    port: Number(process.env.PORT) || 5173,   // ← added
   },
-  // ⚡ PERFORMANCE: Pre-bundling de dependências
+  preview: {                                  // ← entire block added
+    host: '0.0.0.0',
+    port: Number(process.env.PORT) || 4173,
+  },
   optimizeDeps: {
     include: [
       'react',
