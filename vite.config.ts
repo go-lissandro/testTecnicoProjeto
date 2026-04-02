@@ -40,10 +40,12 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',                          // ← added
     port: Number(process.env.PORT) || 5173,   // ← added
+    allowedHosts: true,                      // ← changed
   },
   preview: {                                  // ← entire block added
     host: '0.0.0.0',
     port: Number(process.env.PORT) || 4173,
+    allowedHosts: true,   
   },
   optimizeDeps: {
     include: [
